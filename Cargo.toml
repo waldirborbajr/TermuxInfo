@@ -2,8 +2,20 @@
 name = "TermuxInfo"
 version = "0.1.0"
 edition = "2024"
+license = "MIT"
+repository = "https://github.com/waldirborbajr/TermuxInfo"
+authors = ["Waldir Borba Junior <wborbajr@gmail.com>"]
+readme = "README.md"
 
 [dependencies]
 tokio = { version = "1", features = ["macros", "rt-multi-thread"] }
 reqwest = { version = "0.12", features = ["json"] }
 dotenvy = "0.15"
+
+[profile.release]
+opt-level = "z"      # optimize for size
+lto = true           # link-time optimization across crates
+codegen-units = 1    # better optimization, slower build
+panic = "abort"      # removes unwinding code
+strip = true         # strips binary symbols
+debug = false
